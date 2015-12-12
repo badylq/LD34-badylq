@@ -9,9 +9,15 @@ namespace LD34
 	{
 		private List<Component> components;
 
-		public Component GetComponent(int id)
+		public Entity()
 		{
-			return null;
+			components = new List<Component>();
+		}
+
+		public Component GetComponent(ComponentId id)
+		{
+			var component = components.FirstOrDefault(x => x.Id.Equals(id));
+			return component;
 		}
 
 		public void AddComponent(Component component)
@@ -26,21 +32,19 @@ namespace LD34
 			}
 		}
 
-		public bool HasComponent(int id)
+		public bool HasComponent(ComponentId id)
 		{
+			if (null != components.FirstOrDefault(x => x.Id.Equals(id)))
+			{
+				return true;
+			}
 			return false;
 		}
 
 		private void ReplaceComponent(Component component)
 		{
-			for (int i = 0; i < components.Count; i++)
-			{
-				if (components[i].Id == component.Id)
-				{
-					components[i] = component;
-					break;
-				}
-			}
+			var comp = components.FirstOrDefault(x => x.Id.Equals(component.Id));
+			comp = component;
 		}
 	}
 }

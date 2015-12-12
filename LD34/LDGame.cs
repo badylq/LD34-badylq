@@ -26,7 +26,13 @@ namespace LD34
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
+			Config.Instance.SpriteBatch = spriteBatch;
+			Config.Instance.XResolution = 1280;
+			Config.Instance.YResolution = 720;
+			graphics.PreferredBackBufferWidth = Config.Instance.XResolution;
+			graphics.PreferredBackBufferHeight = Config.Instance.YResolution;
+			//graphics.IsFullScreen = true;
+			graphics.ApplyChanges();
 
 			base.Initialize();
 		}
@@ -73,7 +79,7 @@ namespace LD34
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			GraphicsDevice.Clear(Color.Teal);
 
 			// TODO: Add your drawing code here
 

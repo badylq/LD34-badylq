@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LD34
+namespace LD34.Components
 {
-	class Scene
+	class Player
 	{
 	}
 }

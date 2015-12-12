@@ -13,7 +13,7 @@ namespace LD34
 		{
 		}
 
-		public Config Instance
+		public static Config Instance
 		{
 			get
 			{
