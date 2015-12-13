@@ -20,6 +20,7 @@ namespace LD34
 		Sprite,
 		Velocity,
 		Player,
-		Enemy
+		Enemy,
+		Animated
 	}
 }

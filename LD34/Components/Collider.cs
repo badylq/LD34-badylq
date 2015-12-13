@@ -11,13 +11,13 @@ namespace LD34.Components
 		public Vector2 Pos = new Vector2(0,0);
 		public ColliderType Type= ColliderType.Unknown;
 		public int EntityId;
+		public bool CanJump = false;
 	}
 
 	internal enum ColliderType
 	{
 		Item,
 		Ground,
-		Platform,
 		Object,
 		Moving,
 		Unknown

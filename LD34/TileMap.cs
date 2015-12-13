@@ -27,7 +27,7 @@ namespace LD34
 					{
 						int row = (map[i, j] - 1)/columnCount;
 						int column = (map[i, j] - 1)%columnCount;
-						Rectangle sourceRectangle = new Rectangle(textureWidth*column, textureWidth*row, textureWidth, textureHeight);
+						Rectangle sourceRectangle = new Rectangle(textureWidth*column, textureHeight*row, textureWidth, textureHeight);
 						Rectangle destinaRectangle = new Rectangle(j*textureWidth, i*textureHeight, textureWidth,textureHeight);
 						Config.Instance.SpriteBatch.Draw(texture, destinaRectangle, sourceRectangle, Color.White);
 					}

@@ -14,12 +14,7 @@ namespace LD34.Systems
 				if (entities[i].HasComponent(ComponentId.Velocity))
 				{
 					var velocity = entities[i].GetComponent(ComponentId.Velocity) as Velocity;
-					velocity.Y += (float)(1700 * gameTime.ElapsedGameTime.TotalSeconds);
-					//if (entities[i].HasComponent(ComponentId.Collider))
-					//{
-					//	Collider collider = entities[i].GetComponent(ComponentId.Collider) as Collider;
-						
-					//}
+					velocity.Y += (float)(2250 * gameTime.ElapsedGameTime.TotalSeconds);
 
 				}
 			}

@@ -24,13 +24,6 @@ namespace LD34.Systems
 						collider = entities[i].GetComponent(ComponentId.Collider) as Collider;
 					}
 
-					if (collider != null && collider.CollidingWith.FirstOrDefault(x => x.Type.Equals(ColliderType.Ground)) != null &&
-							collider.CollidingWith.FirstOrDefault(x => x.Type.Equals(ColliderType.Platform)) != null)
-					{
-						velocity.Y = 0.0f;
-					}
-
-
 					if (entities[i].HasComponent(ComponentId.Input))
 					{
 						Input input = entities[i].GetComponent(ComponentId.Input) as Input;
@@ -50,7 +43,7 @@ namespace LD34.Systems
 						{
 							if (velocity.X > 0 && !input.KeyRight)
 							{
-								velocity.X -= (float) (velocity.MaxVelocity*3*gameTime.ElapsedGameTime.TotalSeconds);
+								velocity.X -= (float) (velocity.MaxVelocity*5*gameTime.ElapsedGameTime.TotalSeconds);
 								if (velocity.X < 0)
 									velocity.X = 0;
 							}
@@ -58,7 +51,7 @@ namespace LD34.Systems
 							{
 								if (velocity.X < 0 && !input.KeyLeft)
 								{
-									velocity.X += (float) (velocity.MaxVelocity*3*gameTime.ElapsedGameTime.TotalSeconds);
+									velocity.X += (float) (velocity.MaxVelocity*5*gameTime.ElapsedGameTime.TotalSeconds);
 									if (velocity.X > 0)
 										velocity.X = 0;
 								}
@@ -67,9 +60,10 @@ namespace LD34.Systems
 
 						if (input.KeyJump && collider != null)
 						{
-							if (collider.CollidingWith.FirstOrDefault(x => x.Type.Equals(ColliderType.Ground)) != null || collider.CollidingWith.FirstOrDefault(x => x.Type.Equals(ColliderType.Platform)) != null)
+							if(collider.CanJump)
 							{
-								velocity.Y = -900.0f;
+								velocity.Y = -1000.0f;
+								collider.CanJump = false;
 							}
 						}
 					}

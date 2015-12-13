@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LD34.Animations;
 using LD34.Components;
 using LD34.Systems;
 using LD34.Systems.Helpers;
@@ -47,10 +48,12 @@ namespace LD34.Scenes
 			systems.Add(new Gravity());
 			systems.Add(new Movement());
 			systems.Add(new Collisions());
+			systems.Add(new Animate());
 			
 			Entity entity = new Entity(id++);
-			entity.AddComponent(new Collider() {Width = 64, Height = 64, Id = ComponentId.Collider, Type = ColliderType.Moving, EntityId = entity.Id});
-			entity.AddComponent(new Sprite() {DrawOrder = 1, Id = ComponentId.Sprite, Texture = TextureManager.Instance.GetTexture("player"), TextureRect = new Rectangle(0,0,32,32), Height = 64,Width = 64});
+			entity.AddComponent(new Collider() {Width = 64, Height = 64, Id = ComponentId.Collider, Type = ColliderType.Moving, EntityId = entity.Id, CanJump = false});
+			entity.AddComponent(new Sprite() {DrawOrder = 1, Id = ComponentId.Sprite, Texture = TextureManager.Instance.GetTexture("player"), TextureRect = new Rectangle(64,64,64,64), Height = 64,Width = 64});
+			entity.AddComponent(PlayerAnimation.GetPlayerAnimation(TextureManager.Instance.GetTexture("player")));
 			entity.AddComponent(new Position() {Id = ComponentId.Position,Pos = new Vector2() {X = 200.0f, Y = 300.0f} });
 			entity.AddComponent(new Input() {Id = ComponentId.Input, KeyJump = false, KeyLeft = false, KeyRight = false});
 			entity.AddComponent(new Player() {Id=ComponentId.Player});
@@ -62,12 +65,16 @@ namespace LD34.Scenes
 			entity.AddComponent(new Position() { Id = ComponentId.Position, Pos = new Vector2() { X = 0.0f, Y = 656.0f } });
 			entities.Add(entity);
 			entity = new Entity(id++);
-			entity.AddComponent(new Collider() { Width = 256, Height = 64, Id = ComponentId.Collider, Type = ColliderType.Platform, EntityId = entity.Id, Pos = new Vector2() { X = 128.0f, Y = 464.0f } });
+			entity.AddComponent(new Collider() { Width = 32, Height = 720, Id = ComponentId.Collider, Type = ColliderType.Object, EntityId = entity.Id, Pos = new Vector2() { X = -32.0f, Y = 0.0f } });
+			entity.AddComponent(new Position() { Id = ComponentId.Position, Pos = new Vector2() { X = -32.0f, Y = 0.0f } });
+			entities.Add(entity);
+			entity = new Entity(id++);
+			entity.AddComponent(new Collider() { Width = 256, Height = 64, Id = ComponentId.Collider, Type = ColliderType.Object, EntityId = entity.Id, Pos = new Vector2() { X = 128.0f, Y = 464.0f } });
 			entity.AddComponent(new Position() { Id = ComponentId.Position, Pos = new Vector2() { X = 128.0f, Y = 464.0f } });
 			entities.Add(entity);
 			entity = new Entity(id++);
-			entity.AddComponent(new Collider() { Width = 128, Height = 192, Id = ComponentId.Collider, Type = ColliderType.Object, EntityId = entity.Id, Pos = new Vector2() { X = 768.0f, Y = 592.0f } });
-			entity.AddComponent(new Position() { Id = ComponentId.Position, Pos = new Vector2() { X = 768.0f, Y = 592.0f } });
+			entity.AddComponent(new Collider() { Width = 128, Height = 192, Id = ComponentId.Collider, Type = ColliderType.Object, EntityId = entity.Id, Pos = new Vector2() { X = 768.0f, Y = 464.0f } });
+			entity.AddComponent(new Position() { Id = ComponentId.Position, Pos = new Vector2() { X = 768.0f, Y = 464.0f } });
 			entities.Add(entity);
 		}
 	}

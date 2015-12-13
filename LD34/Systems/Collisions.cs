@@ -25,7 +25,7 @@ namespace LD34.Systems
 			for (int i = 0; i < entitiesWithColliders.Count; i++)
 			{
 				ColliderType type = ((Collider) entitiesWithColliders[i].GetComponent(ComponentId.Collider)).Type;
-				if (type != ColliderType.Object && type != ColliderType.Platform && type != ColliderType.Ground)
+				if (type != ColliderType.Object && type != ColliderType.Ground)
 				{
 					for (int j = 0; j < entitiesWithColliders.Count; j++)
 					{
@@ -53,35 +53,38 @@ namespace LD34.Systems
 				{
 					Rectangle bounds2 = Helper.GetBounds(collider.CollidingWith[j]);
 
-					
-
-					if (Math.Abs(bounds1.Center.Y - bounds2.Center.Y) < Math.Abs(bounds1.Center.X - bounds2.Center.X))
+					if (bounds1.Top - velocity.Y*gameTime.ElapsedGameTime.TotalSeconds > bounds2.Bottom)
 					{
+						position.Pos.Y = bounds2.Y + bounds2.Height;
+						collider.Pos = position.Pos;
 						velocity.Y = 0.0f;
-						if (bounds1.Top > bounds2.Top)
-						{
-							position.Pos.Y = bounds2.Y + bounds2.Height;
-							continue;
-						}
-						else
-						{
-							position.Pos.Y = bounds2.Y - collider.Height;
-							collider.Pos = position.Pos;
-							continue;
-						}
+						collider.CanJump = false;
+						continue;
 					}
-					//if (velocity.X != 0 && bounds1.Right < bounds2.Right)
-					//{
-					//	position.Pos.X = bounds2.X - collider.Width;
-					//	collider.Pos = position.Pos;
-
-					//}
-					//if (velocity.X != 0)
-					//{
-					//	position.Pos.X = bounds2.X + bounds2.Width;
-					//	collider.Pos = position.Pos;
-
-					//}
+					if (bounds1.Bottom - velocity.Y * gameTime.ElapsedGameTime.TotalSeconds - 0.3 <= bounds2.Top)
+					{
+						
+						position.Pos.Y = bounds2.Y - collider.Height;
+						collider.Pos = position.Pos;
+						
+						velocity.Y = 0.0f;
+						collider.CanJump = true;
+						continue;
+					}
+					if (bounds1.Right - velocity.X < bounds2.Left)
+					{
+						position.Pos.X = bounds2.X - collider.Width;
+						collider.Pos = position.Pos;
+						velocity.X = 0.0f;
+						collider.CanJump = false;
+					}
+					if (bounds1.Left - velocity.X > bounds2.Right)
+					{
+						position.Pos.X = bounds2.X + bounds2.Width;
+						collider.Pos = position.Pos;
+						velocity.X = 0.0f;
+						collider.CanJump = false;
+					}
 				}
 			}
 			

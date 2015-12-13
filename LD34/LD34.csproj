@@ -41,7 +41,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animations\Animation.cs" />
+    <Compile Include="Animations\PlayerAnimation.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Components\Animated.cs" />
     <Compile Include="Components\Collider.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Components\Growing.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="Scenes\Level1Tiles.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="main\SceneManager.cs" />
+    <Compile Include="Systems\Animate.cs" />
     <Compile Include="Systems\Collisions.cs" />
     <Compile Include="Systems\Draw.cs" />
     <Compile Include="Systems\Gravity.cs" />
