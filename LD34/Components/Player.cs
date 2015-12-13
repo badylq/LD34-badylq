@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LD34.Components
 {
-	class Player
+	class Player : Component
 	{
 	}
 }

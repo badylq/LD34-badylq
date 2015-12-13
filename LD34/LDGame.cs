@@ -11,7 +11,7 @@ namespace LD34
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-
+		private SceneManager sceneManager;
 		public LDGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -26,13 +26,14 @@ namespace LD34
 		/// </summary>
 		protected override void Initialize()
 		{
-			Config.Instance.SpriteBatch = spriteBatch;
 			Config.Instance.XResolution = 1280;
 			Config.Instance.YResolution = 720;
 			graphics.PreferredBackBufferWidth = Config.Instance.XResolution;
 			graphics.PreferredBackBufferHeight = Config.Instance.YResolution;
 			//graphics.IsFullScreen = true;
 			graphics.ApplyChanges();
+
+			sceneManager = new SceneManager(this);
 
 			base.Initialize();
 		}
@@ -45,8 +46,11 @@ namespace LD34
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
+			Config.Instance.SpriteBatch = spriteBatch;
+			Config.Instance.GraphicsDevice = graphics.GraphicsDevice;
+			TextureManager.Instance.LoadTextures(Content);
 
-			// TODO: use this.Content to load your game content here
+			sceneManager.LoadScenes();
 		}
 
 		/// <summary>
@@ -55,7 +59,6 @@ namespace LD34
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			// TODO: Unload any non ContentManager content here
 		}
 
 		/// <summary>
@@ -68,7 +71,7 @@ namespace LD34
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			// TODO: Add your update logic here
+			sceneManager.Update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -80,8 +83,10 @@ namespace LD34
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Teal);
-
-			// TODO: Add your drawing code here
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
+				sceneManager.GetViewTransform());
+			sceneManager.Draw(gameTime);
+			spriteBatch.End();
 
 			base.Draw(gameTime);
 		}

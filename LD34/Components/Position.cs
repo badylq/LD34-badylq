@@ -1,8 +1,9 @@
-﻿namespace LD34.Components
+﻿using Microsoft.Xna.Framework;
+
+namespace LD34.Components
 {
-	internal class Position : Component
+	public class Position : Component
 	{
-		private float X { get; set; }
-		private float Y { get; set; }
+		public Vector2 Pos = new Vector2(0,0);
 	}
 }

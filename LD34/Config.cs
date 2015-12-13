@@ -8,6 +8,7 @@ namespace LD34
 		public int XResolution;
 		public int YResolution;
 		public SpriteBatch SpriteBatch;
+		public GraphicsDevice GraphicsDevice;
 
 		protected Config()
 		{

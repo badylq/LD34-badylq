@@ -3,10 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LD34.Components
 {
-	internal class Sprite
+	public class Sprite : Component
 	{
-		public int DrawOrder { get; set; }
-		public Texture2D Texture { get; set; }
-		public Rectangle TextureRect { get; set; }
+		public int DrawOrder = 0;
+		public Texture2D Texture = null;
+		public Rectangle TextureRect= new Rectangle(0,0,0,0);
+		public int Width = 0;
+		public int Height = 0;
 	}
 }

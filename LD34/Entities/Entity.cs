@@ -8,9 +8,11 @@ namespace LD34
 	class Entity
 	{
 		private List<Component> components;
+		public int Id;
 
-		public Entity()
+		public Entity(int id)
 		{
+			Id = id;
 			components = new List<Component>();
 		}
 

@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LD34.Components;
 
 namespace LD34
 {
-	class Component
+	public class Component
 	{
-		public ComponentId Id;
+		public ComponentId Id { get; set; }
 	}
 
-	enum ComponentId
+	public enum ComponentId
 	{
 		Collider,
 		Growing,
 		Input,
 		Position,
 		Sprite,
-		Velocity
+		Velocity,
+		Player,
+		Enemy
 	}
 }

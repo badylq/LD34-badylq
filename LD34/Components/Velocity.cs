@@ -1,8 +1,9 @@
 ﻿namespace LD34.Components
 {
-	internal class Velocity
+	internal class Velocity : Component
 	{
-		public float X { get; set; }
-		public float Y { get; set; }
+		public float X = 0.0f;
+		public float Y = 0.0f;
+		public float MaxVelocity = 0.0f;
 	}
 }
