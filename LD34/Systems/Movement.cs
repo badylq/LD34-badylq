@@ -9,7 +9,7 @@ namespace LD34.Systems
 {
 	class Movement : System
 	{
-		public override void Update(GameTime gameTime, List<Entity> entities)
+		public override void Update(GameTime gameTime, Entities entities)
 		{
 			for (int i = 0; i < entities.Count; i++)
 			{
@@ -58,12 +58,20 @@ namespace LD34.Systems
 							}
 						}
 
-						if (input.KeyJump && collider != null)
+						if (collider != null)
 						{
-							if(collider.CanJump)
+							if (collider.Grounded)
 							{
-								velocity.Y = -1000.0f;
-								collider.CanJump = false;
+								velocity.Y = 0.0f;
+							}
+
+							if (input.KeyJump)
+							{
+								if (collider.Grounded || collider.CanJump)
+								{
+									velocity.Y = -1000.0f;
+									collider.CanJump = false;
+								}
 							}
 						}
 					}
@@ -73,7 +81,8 @@ namespace LD34.Systems
 
 					if (collider != null)
 					{
-						collider.Pos = position.Pos;
+						collider.Pos.X = position.Pos.X;
+						collider.Pos.Y = position.Pos.Y;
 					}
 				}
 			}

@@ -32,6 +32,10 @@ namespace LD34
 			textures.Add(new Texture {Id = "player", Image = contentManager.Load<Texture2D>("img/player")});
 			textures.Add(new Texture {Id = "world", Image = contentManager.Load<Texture2D>("img/world")});
 			textures.Add(new Texture {Id = "enemy", Image = contentManager.Load<Texture2D>("img/enemy")});
+			textures.Add(new Texture { Id = "title", Image = contentManager.Load<Texture2D>("img/title") });
+			textures.Add(new Texture { Id = "death", Image = contentManager.Load<Texture2D>("img/death") });
+			textures.Add(new Texture { Id = "win", Image = contentManager.Load<Texture2D>("img/win") });
+			textures.Add(new Texture { Id = "finish", Image = contentManager.Load<Texture2D>("img/finish") });
 		}
 
 		public Texture2D GetTexture(string id)

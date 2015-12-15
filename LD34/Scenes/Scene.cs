@@ -7,33 +7,31 @@ using Microsoft.Xna.Framework;
 
 namespace LD34
 {
-	class Scene : GameComponent
+	class Scene
 	{
-		protected Game game;
-		protected List<Entity> entities;
+		protected Entities entities;
 		protected Draw drawSystem;
 		protected List<System> systems;
 		protected int width;
 		protected int height;
 		protected Camera view;
-		public Scene(Game game) : base(game)
+		public Scene()
 		{
-			this.game = game;
-			entities = new List<Entity>();
+			entities = new Entities();
 			drawSystem = new Draw();
 			systems = new List<System>();
 			view = new Camera();
+			Config.Instance.FramesSinceCleaning = 0;
 		}
 
-		public new virtual void Update(GameTime gameTime)
+		public virtual void Update(GameTime gameTime)
 		{
-			base.Update(gameTime);
 			view.Update(gameTime);
 		}
 
-		public new virtual void Initialize()
+		public virtual void Initialize()
 		{
-			base.Initialize();
+			
 		}
 
 		public virtual void Draw(GameTime gameTime)

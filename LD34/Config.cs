@@ -9,9 +9,12 @@ namespace LD34
 		public int YResolution;
 		public SpriteBatch SpriteBatch;
 		public GraphicsDevice GraphicsDevice;
+		public int EntityId;
+		public int FramesSinceCleaning;
 
 		protected Config()
 		{
+			EntityId = 0;
 		}
 
 		public static Config Instance

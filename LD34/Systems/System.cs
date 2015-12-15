@@ -8,6 +8,6 @@ namespace LD34
 {
 	abstract class System
 	{
-		abstract public void Update(GameTime gameTime, List<Entity> entities);
+		abstract public void Update(GameTime gameTime, Entities entities);
 	}
 }

@@ -10,7 +10,7 @@ namespace LD34.Systems
 {
 	class Animate : System
 	{
-		public override void Update(GameTime gameTime, List<Entity> entities)
+		public override void Update(GameTime gameTime, Entities entities)
 		{
 			Animation animationToPlay = null;
 			for (int i = 0; i < entities.Count; i++)
@@ -22,18 +22,15 @@ namespace LD34.Systems
 					if (entities[i].HasComponent(ComponentId.Velocity))
 					{
 						Velocity velocity = entities[i].GetComponent(ComponentId.Velocity) as Velocity;
-						Console.WriteLine("X: {0}   Y: {1}", velocity.X, velocity.Y);
 						int margin = 60;
 						if (velocity.X >= 0)
 						{
 							if (Math.Abs(velocity.Y) < margin)
 							{
-								if(velocity.X == 0)
+								if(velocity.X < margin)
 									animationToPlay = animation.Standing;
 								else
-								{
 									animationToPlay = animation.WalkRight;
-								}
 							}
 							else
 							{
@@ -51,6 +48,9 @@ namespace LD34.Systems
 						{
 							if (Math.Abs(velocity.Y) < margin)
 							{
+								if (velocity.X > -margin)
+									animationToPlay = animation.Standing;
+								else
 									animationToPlay = animation.WalkLeft;
 							}
 							else

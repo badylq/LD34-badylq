@@ -33,7 +33,7 @@ namespace LD34
 			//graphics.IsFullScreen = true;
 			graphics.ApplyChanges();
 
-			sceneManager = new SceneManager(this);
+			sceneManager = SceneManager.Instance;
 
 			base.Initialize();
 		}
@@ -82,7 +82,7 @@ namespace LD34
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.Teal);
+			GraphicsDevice.Clear(Color.DeepSkyBlue);
 			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
 				sceneManager.GetViewTransform());
 			sceneManager.Draw(gameTime);

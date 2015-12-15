@@ -8,5 +8,7 @@
 		public bool PrevKeyJump = false;
 		public bool PrevKeyLeft = false;
 		public bool PrevKeyRight = false;
+		public bool PrevEnter = false;
+		public bool PrevSpace = false;
 	}
 }

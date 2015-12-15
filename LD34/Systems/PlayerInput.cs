@@ -10,7 +10,7 @@ namespace LD34.Systems
 {
 	class PlayerInput : System
 	{
-		public override void Update(GameTime gameTime, List<Entity> entities)
+		public override void Update(GameTime gameTime, Entities entities)
 		{
 			for (int i = 0; i < entities.Count; i++)
 			{
@@ -18,11 +18,68 @@ namespace LD34.Systems
 				{
 					Input input = entities[i].GetComponent(ComponentId.Input) as Input;
 					input.PrevKeyJump = input.KeyJump;
-					input.PrevKeyLeft = input.KeyLeft;
-					input.PrevKeyRight = input.KeyRight;
-					input.KeyRight = Keyboard.GetState().IsKeyDown(Keys.D);
-					input.KeyLeft = Keyboard.GetState().IsKeyDown(Keys.A);
-					input.KeyJump = Keyboard.GetState().IsKeyDown(Keys.W);
+					if (!input.PrevKeyRight && !input.PrevKeyLeft)
+					{
+						input.PrevKeyRight = true;
+					}
+					if (Keyboard.GetState().IsKeyDown(Keys.Space))
+					{
+						input.KeyJump = false;
+						if (input.PrevKeyRight)
+						{
+							input.KeyRight = true;
+						}
+						if (input.PrevKeyLeft)
+						{
+							input.KeyLeft = true;
+						}
+					}
+					else
+					{
+						if(input.PrevSpace && (input.KeyRight || input.PrevKeyLeft))
+						{
+							if (input.PrevKeyRight)
+							{
+								input.KeyRight = false;
+								input.KeyJump = true;
+							}
+							else
+							{
+								if (input.PrevKeyLeft)
+								{
+									input.KeyLeft = false;
+									input.KeyJump = true;
+								}
+							}
+						}
+						else
+						{
+							input.KeyJump = false;
+						}
+					}
+					if (!input.PrevEnter)
+					{
+						if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+						{
+							if (input.PrevKeyRight)
+							{
+								input.PrevKeyRight = false;
+								input.PrevKeyLeft = true;
+								Console.WriteLine("Zmiana");
+							}
+							else
+							{
+								if (input.PrevKeyLeft)
+								{
+									input.PrevKeyLeft = false;
+									input.PrevKeyRight = true;
+								}
+							}
+						}
+					}
+					input.PrevEnter = Keyboard.GetState().IsKeyDown(Keys.Enter);
+					input.PrevSpace = Keyboard.GetState().IsKeyDown(Keys.Space);
+
 				}
 			}
 		}

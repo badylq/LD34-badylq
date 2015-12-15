@@ -12,6 +12,7 @@ namespace LD34.Components
 		public ColliderType Type= ColliderType.Unknown;
 		public int EntityId;
 		public bool CanJump = false;
+		public bool Grounded = false;
 	}
 
 	internal enum ColliderType
@@ -19,7 +20,9 @@ namespace LD34.Components
 		Item,
 		Ground,
 		Object,
-		Moving,
-		Unknown
+		Player,
+		Enemy,
+		Unknown,
+		Finish
 	}
 }

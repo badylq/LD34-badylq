@@ -21,6 +21,9 @@ namespace LD34
 		Velocity,
 		Player,
 		Enemy,
-		Animated
+		Animated,
+		Spawner,
+		Damage,
+		Finish
 	}
 }

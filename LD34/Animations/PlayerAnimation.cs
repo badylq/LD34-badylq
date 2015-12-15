@@ -10,13 +10,13 @@ namespace LD34.Animations
 {
 	class PlayerAnimation
 	{
-		public static Animated GetPlayerAnimation(Texture2D texture)
+		public static Animated GetAnimation(Texture2D texture)
 		{
 			Animated animated = new Animated();
 			animated.Id = ComponentId.Animated;
 			int[] frames;
 			animated.CurrentlyPlaying = null;
-			frames = new int[] { 0 };
+			frames = new int[] {0};
 			animated.Standing = Animation.CreateFromTexture(texture, new Vector2(64, 64), frames);
 			frames = new int[] {4, 5, 6, 7};
 			animated.WalkRight = Animation.CreateFromTexture(texture, new Vector2(64, 64), frames, 15);

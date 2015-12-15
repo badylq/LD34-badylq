@@ -7,7 +7,7 @@ namespace LD34.Systems
 {
 	internal class Gravity : System
 	{
-		public override void Update(GameTime gameTime, List<Entity> entities)
+		public override void Update(GameTime gameTime, Entities entities)
 		{
 			for (var i = 0; i < entities.Count; i++)
 			{

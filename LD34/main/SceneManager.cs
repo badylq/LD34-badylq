@@ -1,22 +1,31 @@
 ﻿using System.Collections.Generic;
+using System.Dynamic;
 using LD34.Scenes;
 using Microsoft.Xna.Framework;
 
 namespace LD34
 {
-	internal class SceneManager : GameComponent
+	internal class SceneManager
 	{
-		private Game game;
-		private Scene currentScene;
-		//private List<Scene> scenes; 
-		public SceneManager(Game game) : base(game)
+		public static SceneManager Instance
 		{
-			this.game = game;
+			get
+			{
+				if (_instance == null)
+					_instance = new SceneManager();
+				return _instance;
+			}
 		}
 
-		public override void Update(GameTime gameTime)
+		private static SceneManager _instance;
+		private Scene currentScene;
+		//private List<Scene> scenes; 
+		protected SceneManager()
 		{
-			base.Update(gameTime);
+		}
+
+		public void Update(GameTime gameTime)
+		{
 			currentScene.Update(gameTime);
 		}
 
@@ -27,12 +36,34 @@ namespace LD34
 
 		public void LoadScenes()
 		{
-			currentScene = new Level1(game);
+			currentScene = new Title();
 		}
 
 		public Matrix GetViewTransform()
 		{
 			return currentScene.GetViewTransform();
+		}
+
+		public void ChangeScene(string scene)
+		{
+			if (scene == "level1")
+			{
+				currentScene = new Level1();
+				return;
+			}
+			if (scene == "title")
+			{
+				currentScene = new Title();
+				return;
+			}
+			if (scene == "death")
+			{
+				currentScene = new Death();
+			}
+			if (scene == "win")
+			{
+				currentScene = new Win();
+			}
 		}
 	}
 }

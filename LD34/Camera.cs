@@ -27,6 +27,7 @@ namespace LD34
 
 		private int margin;
 		private Entity entityToFollow;
+		private Collider border;
 
 		public Camera()
 		{
@@ -36,11 +37,17 @@ namespace LD34
 			Rotation = 0;
 			margin = 500;
 			entityToFollow = null;
+			border = null;
 		}
 
 		public void SetEntityToFollow(Entity entity)
 		{
 			entityToFollow = entity;
+		}
+
+		public void SetWorldBorder(Collider collider)
+		{
+			border = collider;
 		}
 
 		public void Update(GameTime gameTime)
@@ -51,6 +58,11 @@ namespace LD34
 				if (-mCameraPosition.X + Config.Instance.XResolution - margin < entityPosition.Pos.X)
 				{
 					mCameraPosition.X -= entityPosition.Pos.X -(-mCameraPosition.X + Config.Instance.XResolution - margin);
+					if (border != null)
+					{
+						Console.WriteLine();
+						border.Pos.X = entityPosition.Pos.X + margin - Config.Instance.XResolution - border.Width;
+					}
 				}
 				if (-mCameraPosition.X + margin > entityPosition.Pos.X)
 				{
@@ -61,7 +73,6 @@ namespace LD34
 				}
 			}
 		}
-
 
 		public Matrix GetTransform()
 		{

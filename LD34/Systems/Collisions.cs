@@ -10,13 +10,13 @@ namespace LD34.Systems
 {
 	class Collisions : System
 	{
-		public override void Update(GameTime gameTime, List<Entity> entities)
+		public override void Update(GameTime gameTime, Entities entities)
 		{
 			List<Entity> entitiesWithColliders = new List<Entity>();
 			List<Entity> collidingEntities = new List<Entity>();
 			for (int i = 0; i < entities.Count; i++)
 			{
-				if (entities[i].HasComponent(ComponentId.Collider) && entities[i].HasComponent(ComponentId.Position))
+				if (entities[i].HasComponent(ComponentId.Collider))
 				{
 					entitiesWithColliders.Add(entities[i]);
 					((Collider)entities[i].GetComponent(ComponentId.Collider)).CollidingWith = new List<Collider>();
@@ -27,6 +27,7 @@ namespace LD34.Systems
 				ColliderType type = ((Collider) entitiesWithColliders[i].GetComponent(ComponentId.Collider)).Type;
 				if (type != ColliderType.Object && type != ColliderType.Ground)
 				{
+					((Collider)entitiesWithColliders[i].GetComponent(ComponentId.Collider)).Grounded = false;
 					for (int j = 0; j < entitiesWithColliders.Count; j++)
 					{
 						if (entitiesWithColliders[i].Id != entitiesWithColliders[j].Id)
@@ -51,39 +52,42 @@ namespace LD34.Systems
 				Rectangle bounds1 = Helper.GetBounds(collider);
 				for (int j = 0; j < collider.CollidingWith.Count; j++)
 				{
-					Rectangle bounds2 = Helper.GetBounds(collider.CollidingWith[j]);
+					if(collider.CollidingWith[j].Type != ColliderType.Enemy && collider.CollidingWith[j].Type != ColliderType.Item && collider.CollidingWith[j].Type != ColliderType.Player)
+					{
+						Rectangle bounds2 = Helper.GetBounds(collider.CollidingWith[j]);
 
-					if (bounds1.Top - velocity.Y*gameTime.ElapsedGameTime.TotalSeconds > bounds2.Bottom)
-					{
-						position.Pos.Y = bounds2.Y + bounds2.Height;
-						collider.Pos = position.Pos;
-						velocity.Y = 0.0f;
-						collider.CanJump = false;
-						continue;
-					}
-					if (bounds1.Bottom - velocity.Y * gameTime.ElapsedGameTime.TotalSeconds - 0.3 <= bounds2.Top)
-					{
+						if (bounds1.Top - velocity.Y*gameTime.ElapsedGameTime.TotalSeconds > bounds2.Bottom)
+						{
+							position.Pos.Y = bounds2.Y + bounds2.Height;
+							collider.Pos = position.Pos;
+							velocity.Y = 0.0f;
+							collider.CanJump = false;
+							continue;
+						}
+						if (bounds1.Bottom - velocity.Y * gameTime.ElapsedGameTime.TotalSeconds - 1 <= bounds2.Top)
+						{
 						
-						position.Pos.Y = bounds2.Y - collider.Height;
-						collider.Pos = position.Pos;
+							position.Pos.Y = bounds2.Y - collider.Height;
+							collider.Pos = position.Pos;
 						
-						velocity.Y = 0.0f;
-						collider.CanJump = true;
-						continue;
-					}
-					if (bounds1.Right - velocity.X < bounds2.Left)
-					{
-						position.Pos.X = bounds2.X - collider.Width;
-						collider.Pos = position.Pos;
-						velocity.X = 0.0f;
-						collider.CanJump = false;
-					}
-					if (bounds1.Left - velocity.X > bounds2.Right)
-					{
-						position.Pos.X = bounds2.X + bounds2.Width;
-						collider.Pos = position.Pos;
-						velocity.X = 0.0f;
-						collider.CanJump = false;
+							velocity.Y = 0.0f;
+							collider.CanJump = true;
+							continue;
+						}
+						if (bounds1.Right - velocity.X * gameTime.ElapsedGameTime.TotalSeconds - 1 < bounds2.Left)
+						{
+							position.Pos.X = bounds2.X - collider.Width;
+							collider.Pos = position.Pos;
+							velocity.X = 0.0f;
+							collider.CanJump = false;
+						}
+						if (bounds1.Left - velocity.X * gameTime.ElapsedGameTime.TotalSeconds + 1 > bounds2.Right)
+						{
+							position.Pos.X = bounds2.X + bounds2.Width;
+							collider.Pos = position.Pos;
+							velocity.X = 0.0f;
+							collider.CanJump = false;
+						}
 					}
 				}
 			}
@@ -102,6 +106,10 @@ namespace LD34.Systems
 				bounds1.Bottom > bounds2.Y)
 			{
 				collider1.CollidingWith.Add(collider2);
+				if (collider2.Type == ColliderType.Ground)
+				{
+					collider1.Grounded = true;
+				}
 				return true;
 			}
 			return false;

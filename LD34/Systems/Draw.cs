@@ -10,7 +10,7 @@ namespace LD34.Systems
 {
 	class Draw : System
 	{
-		public override void Update(GameTime gameTime, List<Entity> entities)
+		public override void Update(GameTime gameTime, Entities entities)
 		{
 			for (int i = 0; i < entities.Count; i++)
 			{
